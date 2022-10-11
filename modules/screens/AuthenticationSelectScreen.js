@@ -17,6 +17,7 @@ import { postRelation } from '../../utils/client';
 import { getRelations } from '../../utils/client';
 import { getDefaultRelationTypesDropdown } from '../../utils/client';
 import { getRelationTypesDropDown } from '../../utils/client';
+import { postAutenticacion } from '../../utils/client';
 
 
 const DeviceWidth = Dimensions.get('window').width
@@ -204,6 +205,7 @@ export default function AuthenticationSelectScreen() {
                 } else {
                     navigation.replace('authenticationSelect', null, null);
                     alert('RELACION INCORRECTA');
+                    postAutenticacion('failed');
                 }
             }
             console.log(relationsVal.length);
@@ -238,9 +240,18 @@ export default function AuthenticationSelectScreen() {
     const AuthFunction = () => {
         console.log(relationsVal.length);
         console.log(relationsVal);
-        if (relationsVal.length != 0) alert('AUTENTICACIÓN FALLIDA');
-        else alert('AUTENTICACIÓN CORRECTA');
+        if (relationsVal.length != 0) {
+            alert('AUTENTICACIÓN FALLIDA')
+            postAutenticacion('failed');
+        } else {
+            alert('AUTENTICACIÓN CORRECTA');
+            postAutenticacion('succesful');
+        };
 	}
+
+    function onCancelSR() {
+        setModalVisible(!modalVisible);
+    }
 
     return(
         <View style={styles.screenContainer}>
@@ -248,8 +259,8 @@ export default function AuthenticationSelectScreen() {
 
                 {
                     selImgVisible ? (
-                        <View style={styles.scrollElement2}>
-                            <Text style={{fontWeight:'bold', marginHorizontal:20, bottom: 20}}>Del siguiente grupo de imágenes selecciona las 4 que son tuyas
+                        <ScrollView style={styles.scrollElement2}>
+                            <Text style={{fontWeight:'bold', marginHorizontal:20, bottom: 20, marginTop: 20}}>Del siguiente grupo de imágenes selecciona las 4 que son tuyas
                             y que diste de alta en tu proceso de configuración.</Text>
                             <View style={{
                                 flex: 1,
@@ -275,8 +286,9 @@ export default function AuthenticationSelectScreen() {
                                             )
                                         })}
                                 </View>
+                                <Text style={{color: '#f5f5f5', marginVertical: 40}}>---</Text>
                             </View>
-                        </View>
+                        </ScrollView>
                     ) : <View>
                             <View style={styles.scrollElement2}>
                                 <Text style={{fontWeight:'bold', marginHorizontal:20, bottom: 20}}>Establece las relaciones que existan entre las 4 imagenes.
@@ -329,7 +341,10 @@ export default function AuthenticationSelectScreen() {
                         }}>
                         <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Text style={styles.modalText}>Establecer relación entre</Text>
+                            <TouchableOpacity style={[styles.xbutton, styles.xbuttonClose]} onPress={() => onCancelSR()}>
+                                <Text style={styles.textStyle}>X</Text>
+                            </TouchableOpacity>
+                            <Text style={[styles.modalText, {marginTop: 15}]}>Establecer relación entre</Text>
                             {(() => {
                                 if (modalVisible) {
                                     return (
@@ -388,7 +403,7 @@ const styles = StyleSheet.create({
         top: -45
     },
     scrollElement2: {
-        height:535, 
+        height:600, 
         position:'absolute', 
         padding: 0,
         marginVertical: 0, 
@@ -513,5 +528,18 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center'
+    },
+    xbutton: {
+        borderRadius: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        elevation: 2,
+        marginTop: 0,
+        position: 'absolute',
+        right: 20,
+        top: 15
+    },
+    xbuttonClose: {
+        backgroundColor: 'red',
     },
 })

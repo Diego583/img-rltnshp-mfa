@@ -17,6 +17,7 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import Parse from "parse/react-native.js";
 import RNRestart from 'react-native-restart';
+import { Buffer } from "buffer";
 
 import { useNavigation } from '@react-navigation/native';
 import { uploadImage } from '../../utils/client';
@@ -50,8 +51,11 @@ export default function DataUploadScreen() {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
           base64: true,
-          aspect: [4, 3],
-          quality: 1
+          aspect: [2, 1.5],
+          maxWidth: 200,
+          maxHeight: 200,
+          quality: .1,
+          
         });
     
     
@@ -59,10 +63,29 @@ export default function DataUploadScreen() {
             setImage(result.uri);
             let localUri = result.uri;
             let filename = localUri.split('/').pop();
+            //console.log(result);
 
-            const imageFile = new Parse.File(filename, { base64: result.base64 });
+            //const imageFile = new Parse.File(filename, { base64: result.base64 });
 
-            uploadImage(imageFile).then(function () {
+            /*uploadImage(imageFile).then(function () {
+                navigation.replace('configuration', null, null);
+                alert('IMAGE UPLOADED');
+            });*/
+
+            //btoa("My file content")
+
+            (async () => {
+                const myNewObject = new Parse.Object('Imagen');
+                myNewObject.set('imagen', new Parse.File(filename, { base64: result.base64 }));
+                myNewObject.set('user', Parse.User.current());
+                try {
+                  const result = await myNewObject.save();
+                  // Access the Parse Object attributes using the .GET method
+                  console.log('Imagen created', result);
+                } catch (error) {
+                  console.error('Error while creating Imagen: ', error);
+                }
+              })().then(function () {
                 navigation.replace('configuration', null, null);
                 alert('IMAGE UPLOADED');
             });
@@ -84,15 +107,23 @@ export default function DataUploadScreen() {
             <View>
                 <View style={{marginHorizontal:30, marginBottom: 10}}>
                     <Text style={{fontWeight:'bold'}}>Instrucciones:</Text>
-                    <Text style={{fontWeight:'bold'}}>Sube por lo menos 9 imágenes de tu galería. Sube por lo menos una imágen tuya.
+                    <Text style={{fontWeight:'bold'}}>Sube 9 imágenes de tu galería. Sube por lo menos una imágen tuya.
                     Sube imágenes que puedas relacionar entre si o contigo, es decir, familia, amigos, amigos de amigos, mascotas, etc.
-                    Posteriormente oprime el botón verde. Y cuando estés listo el botón rojo.</Text>
+                    Posteriormente oprime el botón verde. Y cuando estés list@ el botón rojo.</Text>
                 </View>
                 <View style={styles.buttonsMainContainer}>
                     <View>
-                        <TouchableOpacity style={[styles.buttonContainer, styles.galleryButton]} onPress={pickImage}>
-                            <Text style={styles.buttonText}>SUBIR IMÁGEN</Text>
-                        </TouchableOpacity>
+                        {
+                            images.length < 9 ? (
+                            <TouchableOpacity style={[styles.buttonContainer, styles.galleryButton]} onPress={pickImage}>
+                                <Text style={styles.buttonText}>SUBIR IMÁGEN</Text>
+                            </TouchableOpacity>) 
+                            : 
+                            <TouchableOpacity style={[styles.buttonContainer, styles.nextScreenButton]} onPress={() => establishRelationsFunction()}>
+                                <Text style={styles.buttonText}>ESTABLECER RELACIONES</Text>
+                            </TouchableOpacity>
+                        }
+
                     </View>
                     <View >
                         {(() => {
@@ -100,7 +131,8 @@ export default function DataUploadScreen() {
                                 return (
                                 <TouchableOpacity style={[styles.buttonContainer, styles.sendButton]} onPress={() => createRelationTypeFunction()}>
                                     <Text style={styles.buttonText}>CREAR TIPO DE RELACION</Text>
-                                </TouchableOpacity>)
+                                </TouchableOpacity>
+                                )
                             }
                         })()}
                     </View>
@@ -128,21 +160,9 @@ export default function DataUploadScreen() {
                                     )
                                 })}
                         </View>
+                        <Text style={{color: '#f5f5f5', marginVertical: 15}}>---</Text>
                     </View>
                 </ScrollView>
-
-                <View>
-                    {(() => {
-                        if (images.length >= 9) {
-                            return (
-                            <View style={[styles.nextScreenButtonMainContainer]}>
-                                <TouchableOpacity style={[styles.nextScreenButtonContainer, styles.nextScreenButton]} onPress={() => establishRelationsFunction()}>
-                                    <Text style={styles.buttonText}>ESTABLECER RELACIONES</Text>
-                                </TouchableOpacity>
-                            </View>)
-                        }
-                    })()}
-                </View>
 
             </View>
         </View>

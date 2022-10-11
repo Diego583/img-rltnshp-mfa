@@ -6,21 +6,24 @@ const USER_MODEL = Parse.Object.extend("_User");
 const IMAGEN_MODEL = Parse.Object.extend("Imagen");
 const RELACIONTIPO_MODEL = Parse.Object.extend("RelacionTipo");
 const RELACION_MODEL = Parse.Object.extend("Relacion");
+const AUTENTICACIONES_MODEL = Parse.Object.extend("Autenticaciones");
 
 export async function uploadImage(file) {
+
+	const userObj = await Parse.User.currentAsync();
+
+	const imagenObj = new Parse.Object("Imagen");
+
+	imagenObj.set('imagen', file);
+	imagenObj.set('user', userObj);
+
 	try{
-		const userObj = await Parse.User.currentAsync();
-
-		const imagenObj = new Parse.Object("Imagen");
-
-		imagenObj.set('imagen', file);
-		imagenObj.set('user', userObj);
-		await imagenObj.save();
-
-		return true;
+		let imageResult = await imagenObj.save();
+		console.log('Image uploaded', imageResult);
+		//return true;
 	} catch (error) {
 		alert('ERROR');
-		console.log(error);
+		console.error('Error while uploading image', error);
 		return false;
 	}
 }
@@ -145,4 +148,23 @@ export async function getRelations() {
 	let data = await relacionQuery.find();
 
 	return data;
+}
+
+export async function postAutenticacion(status) {
+	try {
+		
+		const userObj = await Parse.User.currentAsync();
+
+		let autObj = new Parse.Object('Autenticaciones');
+
+		autObj.set('user', userObj);
+		autObj.set('status', status);
+
+		await autObj.save();
+
+		return true;
+	} catch(error) {
+		console.log(error);
+		return false;
+	}
 }

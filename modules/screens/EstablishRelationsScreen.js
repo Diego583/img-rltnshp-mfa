@@ -90,6 +90,10 @@ export default function EstablishRelationsScreen() {
 		navigation.navigate('authenticationSelect');
 	}
 
+    function onCancelSR() {
+        setModalVisible(!modalVisible);
+    }
+
     return(
         <View style={styles.screenContainer}>
             <View>
@@ -128,7 +132,6 @@ export default function EstablishRelationsScreen() {
                 el modal selecciona el tipo de relación utilizando el dropdown. Oprime Establecer Relacion para confirmar.</Text>
                 <Text style={{fontWeight:'bold', color: 'red'}}>Asegurate de establecer por lo menos una relacion para cada imagen.</Text>
                 <Text style={{fontWeight:'bold'}}>Una vez hecho esto oprime el botón rojo.</Text>
-                </ScrollView>
 
                 <View>
                     <View style={[styles.nextScreenButtonMainContainer]}>
@@ -137,6 +140,10 @@ export default function EstablishRelationsScreen() {
                         </TouchableOpacity>
                     </View>
                 </View>
+
+                </ScrollView>
+
+                
 
                 <View style={styles.centeredView}>
                     <Modal
@@ -149,7 +156,10 @@ export default function EstablishRelationsScreen() {
                         }}>
                         <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Text style={styles.modalText}>Establecer relación entre</Text>
+                            <TouchableOpacity style={[styles.xbutton, styles.xbuttonClose]} onPress={() => onCancelSR()}>
+                                <Text style={styles.textStyle}>X</Text>
+                            </TouchableOpacity>
+                            <Text style={[styles.modalText, {marginTop: 15}]}>Establecer relación entre</Text>
                             {(() => {
                                 if (modalVisible) {
                                     return (
@@ -248,6 +258,19 @@ const styles = StyleSheet.create({
     buttonClose: {
         backgroundColor: '#2196F3',
     },
+    xbutton: {
+        borderRadius: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        elevation: 2,
+        marginTop: 0,
+        position: 'absolute',
+        right: 20,
+        top: 15
+    },
+    xbuttonClose: {
+        backgroundColor: 'red',
+    },
     textStyle: {
         color: 'white',
         fontWeight: 'bold',
@@ -274,7 +297,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         marginHorizontal: 5, 
         top: 380, 
-        height: 150,
+        height: 200,
         marginHorizontal: 30
     },
     relationTitle: {
@@ -303,7 +326,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginBottom: 40,
         flexDirection: 'row',
-        top: 400
+        marginTop: 18,
+        marginBottom: 150
     },
     nextScreenButtonContainer: {
         height: 40,

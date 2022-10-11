@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start --tunnel",
+    "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
@@ -14,6 +14,8 @@
     "@react-navigation/native-stack": "^6.9.0",
     "@react-navigation/stack": "^6.3.1",
     "async-storage": "^0.1.0",
+    "buffer": "^6.0.3",
+    "Buffer": "^0.0.0",
     "expo": "~46.0.9",
     "expo-image-picker": "~13.3.1",
     "expo-status-bar": "~1.4.0",
