@@ -16,8 +16,6 @@ import {
 
 import * as ImagePicker from 'expo-image-picker';
 import Parse from "parse/react-native.js";
-import RNRestart from 'react-native-restart';
-import { Buffer } from "buffer";
 
 import { useNavigation } from '@react-navigation/native';
 import { uploadImage } from '../../utils/client';

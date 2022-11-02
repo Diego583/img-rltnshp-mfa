@@ -7,6 +7,7 @@ const IMAGEN_MODEL = Parse.Object.extend("Imagen");
 const RELACIONTIPO_MODEL = Parse.Object.extend("RelacionTipo");
 const RELACION_MODEL = Parse.Object.extend("Relacion");
 const AUTENTICACIONES_MODEL = Parse.Object.extend("Autenticaciones");
+const TIEMPOAUT_MODEL = Parse.Object.extend("TiempoAut");
 
 export async function uploadImage(file) {
 
@@ -159,6 +160,25 @@ export async function postAutenticacion(status) {
 
 		autObj.set('user', userObj);
 		autObj.set('status', status);
+
+		await autObj.save();
+
+		return true;
+	} catch(error) {
+		console.log(error);
+		return false;
+	}
+}
+
+export async function postAuthtime(time) {
+	try {
+		
+		const userObj = await Parse.User.currentAsync();
+
+		let autObj = new Parse.Object('TiempoAut');
+
+		autObj.set('user', userObj);
+		autObj.set('time', time);
 
 		await autObj.save();
 

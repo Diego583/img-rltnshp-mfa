@@ -18,6 +18,7 @@
     "Buffer": "^0.0.0",
     "expo": "~46.0.9",
     "expo-image-picker": "~13.3.1",
+    "expo-linking": "^3.2.2",
     "expo-status-bar": "~1.4.0",
     "expo-updates": "^0.14.6",
     "fiction-expo-restart": "^1.1.3",

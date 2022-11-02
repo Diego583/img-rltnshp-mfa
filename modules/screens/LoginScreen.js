@@ -120,17 +120,17 @@ export default function LoginScreen(props){
                 />
         </View>
         <Text style={{fontWeight: 'bold', top: 45}}>Si acabas de crear una cuenta, ingresa tu usuario y contraseña y oprime el botón azul debajo de este texto.</Text>
-        <TouchableHighlight style={[styles.myButtonContainer, styles.galleryButton]} onPress={onLogin2}>
-          <Text style={styles.galleryText}>Registrar segundo factor de autenticación</Text>
+        <TouchableHighlight style={[styles.myButtonContainer, styles.loginButton]} onPress={onLogin2}>
+          <Text style={styles.loginText2}>Registrar segundo factor de autenticación</Text>
         </TouchableHighlight>      
         {!!nameError && (
           <View styles={styles.divError}>
               <Text style={styles.divErrorFont}>{nameError}</Text>
           </View>
         )}
-
-        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={onLogin}>
-          <Text style={styles.loginText}>Iniciar Sesión</Text>
+        <Text style={{fontWeight: 'bold', top: 70}}>Para autenticarte con el segundo factor ya configurado presiona el botón de Autenticación</Text>
+        <TouchableHighlight style={[styles.buttonContainer, styles.galleryButton]} onPress={onLogin}>
+          <Text style={styles.galleryText}>AUTENTICACIÓN</Text>
         </TouchableHighlight>   
           
       </View>
@@ -181,12 +181,17 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        display: 'none'
+        //display: 'none'
     },
     loginText: {
         color: '#2B4066',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
+    loginText2: {
+      color: '#2B4066',
+      fontWeight: 'bold',
+      textAlign: 'center'
+  },
     galleryText: {
       color: 'white',
       fontWeight: 'bold',

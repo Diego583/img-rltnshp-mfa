@@ -6,7 +6,7 @@ import DataUploadScreen from '../modules/screens/DataUploadScreen';
 import CreateRelationTypeScreen from '../modules/screens/CreateRelationTypeScreen';
 import EstablishRelationsScreen from '../modules/screens/EstablishRelationsScreen';
 import AuthenticationSelectScreen from '../modules/screens/AuthenticationSelectScreen';
-
+import AuthSuccesScreen from '../modules/screens/AuthSuccesScreen';
 
 
 
@@ -44,6 +44,14 @@ export default MainNavigation = () => {
 				options={{
 					title: 'Autenticación',
 					headerBackTitleVisible: false
+				}}
+			/>
+			<NavigationStack.Screen 
+				name='authSuccess'
+				component={AuthSuccesScreen}
+				options={{
+					//title: 'Autenticación',
+					headerShown: false
 				}}
 			/>
             

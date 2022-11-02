@@ -6,6 +6,7 @@ import LogInScreen from '../screens/LoginScreen';
 import UserResetPassword from '../screens/ResetPassScreen';
 import AuthenticationSelectScreen from '../screens/AuthenticationSelectScreen';
 import UserCreateAccount from '../screens/UserCreateAccount';
+import AuthSuccesScreen from '../screens/AuthSuccesScreen';
 
 const Stack = createStackNavigator();
 
@@ -31,8 +32,16 @@ export default function LoginStack() {
 				name='authenticationSelect'
 				component={AuthenticationSelectScreen}
 				options={{
-					title: 'Selecciona las imagenes',
+					title: 'Autenticación',
 					headerBackTitleVisible: false
+				}}
+			/>
+            <Stack.Screen 
+				name='authSuccess'
+				component={AuthSuccesScreen}
+				options={{
+					//title: 'Autenticación',
+					headerShown: false
 				}}
 			/>
         </Stack.Navigator>

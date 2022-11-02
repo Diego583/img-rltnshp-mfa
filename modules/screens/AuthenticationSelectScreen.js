@@ -18,6 +18,7 @@ import { getRelations } from '../../utils/client';
 import { getDefaultRelationTypesDropdown } from '../../utils/client';
 import { getRelationTypesDropDown } from '../../utils/client';
 import { postAutenticacion } from '../../utils/client';
+import { postAuthtime } from '../../utils/client';
 
 
 const DeviceWidth = Dimensions.get('window').width
@@ -40,8 +41,11 @@ export default function AuthenticationSelectScreen() {
 
     const navigation = useNavigation();
     let results = [{}];
-    useEffect(() => {
 
+    var startTime = performance.now();
+
+    useEffect(() => {
+        startTime = performance.now();
         /*const fetchRelData = async () => {
             const data2 = new Map();
             getRelations().then(data2 => setallRelations(data2));
@@ -144,7 +148,7 @@ export default function AuthenticationSelectScreen() {
                 };
             };
         };*/
-        console.log(auxArray.length);
+        //console.log(auxArray.length);
         for (var i = 0; i < relations.length; i++)  {
             if (idArray.includes(relations[i].get('imagenID1')) && idArray.includes(relations[i].get('imagenID2'))) {
                 console.log(relations[i].get('imagenID1') + ', ' + relations[i].get('imagenID2'));
@@ -184,6 +188,7 @@ export default function AuthenticationSelectScreen() {
                 changeSelToEst();
             } else {
                 alert('SELECCION INCORRECTA');
+                postAutenticacion('failedInSelection');
                 //console.log(count);
                 imagesArray = [];
             };
@@ -241,10 +246,18 @@ export default function AuthenticationSelectScreen() {
         console.log(relationsVal.length);
         console.log(relationsVal);
         if (relationsVal.length != 0) {
+            navigation.replace('authenticationSelect', null, null);
             alert('AUTENTICACIÓN FALLIDA')
             postAutenticacion('failed');
+            var endTime = performance.now()
+            var authTime = endTime - startTime;
+            postAuthtime(authTime*.01);
         } else {
-            alert('AUTENTICACIÓN CORRECTA');
+            var endTime = performance.now()
+            var authTime = endTime - startTime;
+            postAuthtime(authTime*.01);
+            navigation.navigate('authSuccess');
+            //alert('AUTENTICACIÓN CORRECTA');
             postAutenticacion('succesful');
         };
 	}
