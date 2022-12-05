@@ -20,7 +20,7 @@ export default function ConfigurationStack(props) {
 				name='createRelationType'
 				component={CreateRelationTypeScreen}
 				options={{
-					title: 'Nuevo tipo de relación',
+					title: 'Create Relation Type',
 					headerBackTitleVisible: true
 				}}
 			/>

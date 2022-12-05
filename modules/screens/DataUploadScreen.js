@@ -104,21 +104,20 @@ export default function DataUploadScreen() {
         <View style={styles.screenContainer}>
             <View>
                 <View style={{marginHorizontal:30, marginBottom: 10}}>
-                    <Text style={{fontWeight:'bold'}}>Instrucciones:</Text>
-                    <Text style={{fontWeight:'bold'}}>Sube 9 imágenes de tu galería. Sube por lo menos una imágen tuya.
-                    Sube imágenes que puedas relacionar entre si o contigo, es decir, familia, amigos, amigos de amigos, mascotas, etc.
-                    Posteriormente oprime el botón verde. Y cuando estés list@ el botón rojo.</Text>
+                    <Text style={{fontWeight:'bold'}}>Upload 9 images from your gallery. Upload at least one image of yourself.
+                    Upload images that you can relate to each other or to yourself, that is, pictures of family, friends, friends of friends, pets, etc.
+                    Then press the green button. And when you're ready press the red button.</Text>
                 </View>
                 <View style={styles.buttonsMainContainer}>
                     <View>
                         {
                             images.length < 9 ? (
                             <TouchableOpacity style={[styles.buttonContainer, styles.galleryButton]} onPress={pickImage}>
-                                <Text style={styles.buttonText}>SUBIR IMÁGEN</Text>
+                                <Text style={styles.buttonText}>UPLOAD IMAGE</Text>
                             </TouchableOpacity>) 
                             : 
                             <TouchableOpacity style={[styles.buttonContainer, styles.nextScreenButton]} onPress={() => establishRelationsFunction()}>
-                                <Text style={styles.buttonText}>ESTABLECER RELACIONES</Text>
+                                <Text style={styles.buttonText}>ESTABLISH RELATIONS</Text>
                             </TouchableOpacity>
                         }
 
@@ -128,7 +127,7 @@ export default function DataUploadScreen() {
                             if (images.length >= 9) {
                                 return (
                                 <TouchableOpacity style={[styles.buttonContainer, styles.sendButton]} onPress={() => createRelationTypeFunction()}>
-                                    <Text style={styles.buttonText}>CREAR TIPO DE RELACION</Text>
+                                    <Text style={styles.buttonText}>CREATE RELATION TYPE</Text>
                                 </TouchableOpacity>
                                 )
                             }

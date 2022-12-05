@@ -95,15 +95,15 @@ export default function LoginScreen(props){
     return(
         <View style={styles.container}>
             <View>
-              <Text style={{right: 60, top: 10}}>¿No tienes usuario y contraseña?</Text>
-              <Pressable style={{left: 158, bottom: 10}} onPress={() => navigation.navigate('Crear cuenta')}>
-                <Text style={styles.loginText}>Crea una cuenta</Text>
+              <Text style={{right: 70, top: 8, fontSize: 11}}>Don´t have username and password?</Text>
+              <Pressable style={{left: 140, bottom: 10}} onPress={() => navigation.navigate('Create account')}>
+                <Text style={styles.loginText}>Create an account</Text>
             </Pressable>
             </View>
             <View style={styles.inputContainer}>
                 <TextInput style={styles.inputs}
                 keyboardType="email-address"
-                placeholder="Usuario"
+                placeholder="username"
                 value={user}
                 ref = {input => {textInput = input}}
                 onChangeText={user => setUser(user)}
@@ -111,7 +111,7 @@ export default function LoginScreen(props){
             </View>
             <View style={styles.inputContainer}>
                 <TextInput style={styles.inputs}
-                placeholder="Contraseña"
+                placeholder="password"
                 secureTextEntry={true}
                 underlineColorAndroid='transparent'
                 value={password}
@@ -119,18 +119,18 @@ export default function LoginScreen(props){
                 onChangeText={password => setPassword(password)}
                 />
         </View>
-        <Text style={{fontWeight: 'bold', top: 45}}>Si acabas de crear una cuenta, ingresa tu usuario y contraseña y oprime el botón azul debajo de este texto.</Text>
+        <Text style={{fontWeight: 'bold', top: 45}}>If you have just created an account, enter your username and password and press the blue button below this text.</Text>
         <TouchableHighlight style={[styles.myButtonContainer, styles.loginButton]} onPress={onLogin2}>
-          <Text style={styles.loginText2}>Registrar segundo factor de autenticación</Text>
+          <Text style={styles.loginText2}>Configure 2nd factor of authentication</Text>
         </TouchableHighlight>      
         {!!nameError && (
           <View styles={styles.divError}>
               <Text style={styles.divErrorFont}>{nameError}</Text>
           </View>
         )}
-        <Text style={{fontWeight: 'bold', top: 70}}>Para autenticarte con el segundo factor ya configurado presiona el botón de Autenticación</Text>
+        <Text style={{fontWeight: 'bold', top: 70}}>To authenticate with the already configured second factor press the Authentication button.</Text>
         <TouchableHighlight style={[styles.buttonContainer, styles.galleryButton]} onPress={onLogin}>
-          <Text style={styles.galleryText}>AUTENTICACIÓN</Text>
+          <Text style={styles.galleryText}>AUTHENTICATION</Text>
         </TouchableHighlight>   
           
       </View>

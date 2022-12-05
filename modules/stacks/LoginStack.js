@@ -23,7 +23,7 @@ export default function LoginStack() {
             options={{
                 headerShown: true,
             }}/>
-            <Stack.Screen name="Crear cuenta"
+            <Stack.Screen name="Create account"
             component={UserCreateAccount}
             options={{
                 headerShown: true,
@@ -32,7 +32,7 @@ export default function LoginStack() {
 				name='authenticationSelect'
 				component={AuthenticationSelectScreen}
 				options={{
-					title: 'Autenticación',
+					title: 'Authentication',
 					headerBackTitleVisible: false
 				}}
 			/>

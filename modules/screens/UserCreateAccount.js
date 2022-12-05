@@ -43,11 +43,11 @@ export default UserCreateAccount = () => {
 
     return(
     <View style={styles.container}>
-        <Text style={styles.textTop}>Por favor, ingresa la siguiente información</Text>
+        <Text style={styles.textTop}>Please enter the following information:</Text>
         <View style={styles.inputContainer}>
             <TextInput style={styles.inputs}
                 keyboardType="user"
-                placeholder="Tu username"
+                placeholder="username"
                 value={user}
                 onChangeText={(user) => setUser(user)}
                 />
@@ -55,7 +55,7 @@ export default UserCreateAccount = () => {
         <View style={styles.inputContainer}>
             <TextInput style={styles.inputs}
                 keyboardType="password"
-                placeholder="Tu password"
+                placeholder="password"
                 secureTextEntry={true}
                 underlineColorAndroid='transparent'
                 value={password}
@@ -65,13 +65,13 @@ export default UserCreateAccount = () => {
         <View style={styles.inputContainer}>
             <TextInput style={styles.inputs}
                 keyboardType="email-address"
-                placeholder="Tu email"
+                placeholder="email"
                 value={email}
                 onChangeText={(email) => setEmail(email)}
             />
         </View>
         <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => createUser()}>
-            <Text style={styles.loginText}>Enviar</Text>
+            <Text style={styles.loginText}>Send</Text>
         </TouchableHighlight>  
     </View>  
     )

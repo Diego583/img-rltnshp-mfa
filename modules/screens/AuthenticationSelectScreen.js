@@ -132,32 +132,69 @@ export default function AuthenticationSelectScreen() {
         setestRelVisible(estRelVisible);
     };
 
+    const getRelIMG = async (id1, id2) => {
+        var auxImgArray = [];
+        const userObj = await Parse.User.currentAsync();
+
+        let query = new Parse.Query('Imagen');
+        query.equalTo('user', userObj);
+        query.equalTo('objectId', id1);
+        let r1 = await query.find();
+
+        //console.log(id1);
+        //console.log(r1);
+
+        auxImgArray.push(r1[0]);
+
+        let query2 = new Parse.Query('Imagen');
+        query2.equalTo('user', userObj);
+        query2.equalTo('objectId', id2);
+        let r2 = await query2.find();
+
+        //console.log(id2);
+        //console.log(r2);
+
+        auxImgArray.push(r2[0]);
+
+        //console.log(auxImgArray);
+        
+        setImagesVal(auxImgArray);
+
+    }
+
     function setRelData() {
         let auxArray = [];
         let idArray = [];
         console.log('all rel: ' + relations.length);
 
+        //console.log(relations);
+
         for (var i = 0; i < imagesVal.length; i++)  {
             idArray.push(imagesVal[i].id);
         };
 
-        /*for (var i = 0; i < imagesVal.length; i++)  {
-            for (var j = 0; j < relations.length; j++) {
-                if (imagesVal[i].id == relations[j].get('imagenID1') || imagesVal[i].id == relations[j].get('imagenID2')) {
-                    if (!auxArray.includes(relations[j])) auxArray.push(relations[j]);
-                };
-            };
-        };*/
-        //console.log(auxArray.length);
         for (var i = 0; i < relations.length; i++)  {
             if (idArray.includes(relations[i].get('imagenID1')) && idArray.includes(relations[i].get('imagenID2'))) {
                 console.log(relations[i].get('imagenID1') + ', ' + relations[i].get('imagenID2'));
-                if (!auxArray.includes(relations[i])) auxArray.push(relations[i]);
+                auxArray.push(relations[i]);
+
+                getRelIMG(relations[i].get('imagenID1'), relations[i].get('imagenID2'));
+
+                break;
             }
         }
+
+        if (auxArray.length < 1) {
+            let randomIndex = Math.floor(Math.random() * (relations.length + 1));
+            auxArray.push(relations[randomIndex]);
+
+            getRelIMG(relations[randomIndex].get('imagenID1'), relations[randomIndex].get('imagenID2'));
+        }
+
         setrelationsVal(auxArray);
         console.log(idArray);
         console.log(auxArray.length);
+        console.log('img success');
         //console.log('img rel: ' + relationsVal.length);
     };
 
@@ -273,8 +310,8 @@ export default function AuthenticationSelectScreen() {
                 {
                     selImgVisible ? (
                         <ScrollView style={styles.scrollElement2}>
-                            <Text style={{fontWeight:'bold', marginHorizontal:20, bottom: 20, marginTop: 20}}>Del siguiente grupo de imágenes selecciona las 4 que son tuyas
-                            y que diste de alta en tu proceso de configuración.</Text>
+                            <Text style={{fontWeight:'bold', marginHorizontal:20, bottom: 20, marginTop: 20}}>From the following group of images select the 4 that are yours
+                            and that you registered in your configuration process.</Text>
                             <View style={{
                                 flex: 1,
                                 justifyContent: 'center',
@@ -304,8 +341,8 @@ export default function AuthenticationSelectScreen() {
                         </ScrollView>
                     ) : <View>
                             <View style={styles.scrollElement2}>
-                                <Text style={{fontWeight:'bold', marginHorizontal:20, bottom: 20}}>Establece las relaciones que existan entre las 4 imagenes.
-                                Una vez que hayas establecido todas las relaciones oprime el botón rojo.</Text>
+                                <Text style={{fontWeight:'bold', marginHorizontal:20, bottom: 20}}>Set the relation between the 2 images.
+                                Once you have established it press the red button.</Text>
                                 <View style={{
                                     flex: 1,
                                     justifyContent: 'center',
@@ -336,7 +373,7 @@ export default function AuthenticationSelectScreen() {
                             <View>
                                 <View style={[styles.nextScreenButtonMainContainer]}>
                                     <TouchableOpacity style={[styles.nextScreenButtonContainer, styles.nextScreenButton]} onPress={() => AuthFunction()}>
-                                        <Text style={styles.buttonText}>AUTENTICAR RELACIONES</Text>
+                                        <Text style={styles.buttonText}>AUTHENTICATE</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -357,19 +394,19 @@ export default function AuthenticationSelectScreen() {
                             <TouchableOpacity style={[styles.xbutton, styles.xbuttonClose]} onPress={() => onCancelSR()}>
                                 <Text style={styles.textStyle}>X</Text>
                             </TouchableOpacity>
-                            <Text style={[styles.modalText, {marginTop: 15}]}>Establecer relación entre</Text>
+                            <Text style={[styles.modalText, {marginTop: 15}]}>Set relation between</Text>
                             {(() => {
                                 if (modalVisible) {
                                     return (
                                     <View>
-                                        <Text style={styles.modalText}>{'Imagen: ' + (imageIDs[0].id[0] + imageIDs[0].id[1] + imageIDs[0].id[2] + imageIDs[0].id[3])}</Text>
-                                        <Text style={styles.modalText}>{'Imagen: ' + (imageIDs[1].id[0] + imageIDs[1].id[1] + imageIDs[1].id[2] + imageIDs[1].id[3])}</Text>
+                                        <Text style={styles.modalText}>{'Image: ' + (imageIDs[0].id[0] + imageIDs[0].id[1] + imageIDs[0].id[2] + imageIDs[0].id[3])}</Text>
+                                        <Text style={styles.modalText}>{'Image: ' + (imageIDs[1].id[0] + imageIDs[1].id[1] + imageIDs[1].id[2] + imageIDs[1].id[3])}</Text>
                                     </View>)
                                 }
                             })()}
 
                             <View style={{flexDirection:'row', marginBottom: 35}}>
-                                <Text style={[styles.modalText, {top: 12}]}>De tipo: </Text>
+                                <Text style={[styles.modalText, {top: 12}]}>of type: </Text>
 
                                 <Dropdown
                                 style={styles.dropdown}
@@ -379,7 +416,7 @@ export default function AuthenticationSelectScreen() {
                                 maxHeight={150}
                                 labelField="label"
                                 valueField="value"
-                                placeholder="Selección..."
+                                placeholder="Select..."
                                 value={rt}
                                 onChange={rt => {
                                     setRT(rt.label);
@@ -389,7 +426,7 @@ export default function AuthenticationSelectScreen() {
                             <TouchableOpacity
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => onSendRelation()}>
-                                <Text style={styles.textStyle}>Confirmar relación</Text>
+                                <Text style={styles.textStyle}>Set relation</Text>
                             </TouchableOpacity>
                         </View>
                         </View>

@@ -26,7 +26,7 @@ export default MainNavigation = () => {
 				name='createRelationType'
 				component={CreateRelationTypeScreen}
 				options={{
-					title: 'Nuevo tipo de relación',
+					title: 'Create Relation Type',
 					headerBackTitleVisible: true
 				}}
 			/>
@@ -34,7 +34,7 @@ export default MainNavigation = () => {
 				name='establishRelations'
 				component={EstablishRelationsScreen}
 				options={{
-					title: 'Establecer relaciones',
+					title: 'Establish relations',
 					headerBackTitleVisible: true
 				}}
 			/>
@@ -42,7 +42,7 @@ export default MainNavigation = () => {
 				name='authenticationSelect'
 				component={AuthenticationSelectScreen}
 				options={{
-					title: 'Autenticación',
+					title: 'Authentication',
 					headerBackTitleVisible: false
 				}}
 			/>

@@ -33,13 +33,11 @@ export default function CreateRelationTypeScreen() {
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View>
                 <View style={{marginHorizontal:30, marginBottom: 10}}>
-                    <Text style={{fontWeight:'bold'}}>Instrucciones:</Text>
-                    <Text style={{fontWeight:'bold'}}>Aquí crea tipos de relaciones para relacionar tus imagenes si asi lo deseas,
-                    ya hay algunos por defecto que te sirven como ejemplo y que puedes utilizar, piensa en algo que relaciona algunas de tus imagenes
-                    como mascota, o algun evento, etc.</Text>
+                    <Text style={{fontWeight:'bold'}}>Here you can create relationship types to relate your images if you wish,
+                    there are already some default ones that you can use and that also serve as an example.</Text>
                 </View>
                     <View style={styles.relationslist}>
-                        <Text style={styles.relationTitle}>Tipos de relaciones actuales:</Text>
+                        <Text style={styles.relationTitle}>Current types of relationships:</Text>
                         { defaultRelationTypes.map( (defaultRelationType, i) => {
                             return (
                                 <Text key={i} style={styles.relationText}>- {defaultRelationType.get('nombre')}</Text>
@@ -58,7 +56,7 @@ export default function CreateRelationTypeScreen() {
                             multiline
                             textAlignVertical='top'
                             numberOfLines={1}
-                            placeholder="Escribe el nombre de la relación"
+                            placeholder="Type the name of the relation type"
                             fontSize={16}
                             value={relationTypeName}
                             onChangeText={relationTypeName => setrelationTypeName(relationTypeName)}
@@ -66,7 +64,7 @@ export default function CreateRelationTypeScreen() {
                         />
                         <View style={styles.buttonMainContainer} >
                             <TouchableOpacity style={[styles.buttonContainer, styles.sendButton]} onPress={() => onSendRelationType()}>
-                                <Text style={styles.sendText}>Enviar</Text>
+                                <Text style={styles.sendText}>Send</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

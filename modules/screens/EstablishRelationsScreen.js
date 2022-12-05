@@ -126,17 +126,16 @@ export default function EstablishRelationsScreen() {
                     </View>
                 </ScrollView>
                 
-                <Text style={styles.relationTitle}>Instrucciones:</Text>
                 <ScrollView style={styles.relationslist}>
-                <Text style={{fontWeight:'bold'}}>Selecciona dos imagenes para establecer una relacion entre ellas. Una vez que se despliegue 
-                el modal selecciona el tipo de relación utilizando el dropdown. Oprime Establecer Relacion para confirmar.</Text>
-                <Text style={{fontWeight:'bold', color: 'red'}}>Asegurate de establecer por lo menos una relacion para cada imagen.</Text>
-                <Text style={{fontWeight:'bold'}}>Una vez hecho esto oprime el botón rojo.</Text>
+                <Text style={{fontWeight:'bold'}}>Select two images to establish a relationship between them. Once
+                the modal is shown select the relationship type using the dropdown. Press Set relation to confirm.</Text>
+                <Text style={{fontWeight:'bold', color: 'red'}}>Be sure to establish at least one relationship for each image.</Text>
+                <Text style={{fontWeight:'bold'}}>Once this is done, press the red button.</Text>
 
                 <View>
                     <View style={[styles.nextScreenButtonMainContainer]}>
                         <TouchableOpacity style={[styles.nextScreenButtonContainer, styles.nextScreenButton]} onPress={() => startAuthFunction()}>
-                            <Text style={styles.buttonText}>AUTENTICACIÓN</Text>
+                            <Text style={styles.buttonText}>AUTHENTICATION</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -159,19 +158,19 @@ export default function EstablishRelationsScreen() {
                             <TouchableOpacity style={[styles.xbutton, styles.xbuttonClose]} onPress={() => onCancelSR()}>
                                 <Text style={styles.textStyle}>X</Text>
                             </TouchableOpacity>
-                            <Text style={[styles.modalText, {marginTop: 15}]}>Establecer relación entre</Text>
+                            <Text style={[styles.modalText, {marginTop: 15}]}>Set relation between</Text>
                             {(() => {
                                 if (modalVisible) {
                                     return (
                                     <View>
-                                        <Text style={styles.modalText}>{'Imagen: ' + (imageIDs[0].id[0] + imageIDs[0].id[1] + imageIDs[0].id[2] + imageIDs[0].id[3])}</Text>
-                                        <Text style={styles.modalText}>{'Imagen: ' + (imageIDs[1].id[0] + imageIDs[1].id[1] + imageIDs[1].id[2] + imageIDs[1].id[3])}</Text>
+                                        <Text style={styles.modalText}>{'Image: ' + (imageIDs[0].id[0] + imageIDs[0].id[1] + imageIDs[0].id[2] + imageIDs[0].id[3])}</Text>
+                                        <Text style={styles.modalText}>{'Image: ' + (imageIDs[1].id[0] + imageIDs[1].id[1] + imageIDs[1].id[2] + imageIDs[1].id[3])}</Text>
                                     </View>)
                                 }
                             })()}
 
                             <View style={{flexDirection:'row', marginBottom: 35}}>
-                                <Text style={[styles.modalText, {top: 12}]}>De tipo: </Text>
+                                <Text style={[styles.modalText, {top: 12}]}>of type: </Text>
 
                                 <Dropdown
                                 style={styles.dropdown}
@@ -181,7 +180,7 @@ export default function EstablishRelationsScreen() {
                                 maxHeight={150}
                                 labelField="label"
                                 valueField="value"
-                                placeholder="Selección..."
+                                placeholder="Select..."
                                 value={rt}
                                 onChange={rt => {
                                     setRT(rt.label);
@@ -191,7 +190,7 @@ export default function EstablishRelationsScreen() {
                             <TouchableOpacity
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => onSendRelation()}>
-                                <Text style={styles.textStyle}>Establecer relación</Text>
+                                <Text style={styles.textStyle}>Set relation</Text>
                             </TouchableOpacity>
                         </View>
                         </View>
